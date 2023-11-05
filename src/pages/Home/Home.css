@@ -1,0 +1,11 @@
+.home{
+    color: aliceblue;
+    text-align: center;
+    width: 100%;
+    background-color: blue;
+}
+.homeImg{
+    position: absolute;
+    top: 50px;
+    width: fit-content;
+}
