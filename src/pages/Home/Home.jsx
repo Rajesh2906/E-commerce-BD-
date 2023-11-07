@@ -1,13 +1,19 @@
-import "./Home.css"
-import Header from "../../components/Atoms/Header"
+import "./Home.css";
+import { useNavigate } from 'react-router-dom';
+import homeImg from '../../assets/home-img-used.png'
+
+import Header from "../../components/Atoms/Header";
 const Home = () => {
+    const navigate = useNavigate();
+    const validateSignIn = () => {
+        navigate("/E-commerce-BD-/SignIn");
+    }
+
     return (
         <div>
-        <Header/>
-        {/* <img className="homeImg" src="https://media.istockphoto.com/id/670741276/photo/two-cheerful-girls-shopping-for-clothes.webp?b=1&s=170667a&w=0&k=20&c=-3L-OI4sBLLm-tZSi3aFFyiLDZnh4vaJvjo2R-PKggA="/> */}
-        <div className="home">
-            Home page ra babu
-        </div>
+            <Header validateSignIn={validateSignIn}/>
+            <img className="homeImg" src={homeImg}/>
+            <div className="brandSlider">Brand Logo Slider here</div>          
         </div>
     );
 }

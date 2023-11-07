@@ -5,7 +5,13 @@
     background-color: blue;
 }
 .homeImg{
-    position: absolute;
-    top: 50px;
-    width: fit-content;
+    position: fixed;
+    top: 55px;
+    width: 100%;
+    height: auto;
+}
+.brandSlider{
+    position: relative;
+    top: 210px;
+    width: 100%;
 }
