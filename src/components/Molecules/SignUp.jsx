@@ -11,18 +11,61 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useFormik } from 'formik';
+import React from 'react';
+import "./SignUp.css";
+import { TiInfoLarge } from "react-icons/ti";
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+
+  const validate = values => {
+
+    const errors = {};
+
+    if (!values.firstName) {
+      errors.firstName = "Required";
+    }
+
+    if (!values.lastName) {
+      errors.lastName = "Required";
+    }
+
+    if (!values.email) {
+      errors.email = "Required";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+      errors.email = 'Invalid email address'
+    }
+
+    if (!values.password) {
+      errors.password = "Required";
+    } else if (!/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/.test(values.password)) {
+      errors.password = "Invalid Password";
+    }
+
+
+    return errors;
+
   };
+
+  const infoClick = () => {
+    alert("Password must contain one digit from 1 to 9, one lowercase letter, one uppercase letter, one special character, no space, and it must be 8-16 characters long.");
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+    },
+    validate,
+    onSubmit: values => {
+      alert(JSON.stringify(values, null, 2));
+    }
+  });
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -43,11 +86,11 @@ export default function SignUp() {
             Sign up
           </Typography>
           <Grid item>
-                <Link href="/E-commerce-BD-" variant="body2">
-                  continue shopping
-                </Link>
+            <Link href="/E-commerce-BD-" variant="body2">
+              continue shopping
+            </Link>
           </Grid>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={formik.handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -57,8 +100,14 @@ export default function SignUp() {
                   fullWidth
                   id="firstName"
                   label="First Name"
+                  onChange={formik.handleChange}
+                  value={formik.values.firstName}
+                  onBlur={formik.handleBlur}
                   autoFocus
                 />
+                {formik.touched.firstName && formik.errors.firstName ? (
+                  <div id='errorStyle'>{formik.errors.firstName}</div>) : null
+                }
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -68,7 +117,13 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  onChange={formik.handleChange}
+                  value={formik.values.lastName}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.lastName && formik.errors.lastName ? (
+                  <div id='errorStyle'>{formik.errors.lastName}</div>) : null
+                }
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -78,9 +133,16 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={formik.handleChange}
+                  value={formik.values.email}
+                  onBlur={formik.handleBlur}
                 />
+                {formik.touched.email && formik.errors.email ? (<div id='errorStyle'>
+                  {formik.errors.email}
+                </div>) : null}
               </Grid>
               <Grid item xs={12}>
+
                 <TextField
                   required
                   fullWidth
@@ -89,7 +151,15 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                />
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.password}
+                /><TiInfoLarge onClick={infoClick} />
+
+                {formik.touched.password && formik.errors.password ? (
+                  <div id='errorStyle'>{formik.errors.password}</div>)
+                  : null}
+
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
