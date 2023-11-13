@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,16 +11,19 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Switch from '@mui/material/Switch';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useFormik } from 'formik';
-import React from 'react';
-import "./SignUp.css";
 import { TiInfoLarge } from "react-icons/ti";
-
-const defaultTheme = createTheme();
+import "./SignUp.css";
 
 export default function SignUp() {
 
+
+  const [theme, setTheme] = useState({
+    checked: false,
+    theme: "light"
+  });
 
   const validate = values => {
 
@@ -67,125 +71,148 @@ export default function SignUp() {
     }
   });
 
+  const handleSwitchChange = (event) => {
+    setTheme({ ...theme, checked: event.target.checked, theme: event.target.checked ? "dark" : "light" });
+  };
+
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <Grid item>
-            <Link href="/E-commerce-BD-" variant="body2">
-              continue shopping
-            </Link>
-          </Grid>
-          <Box component="form" noValidate onSubmit={formik.handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  onChange={formik.handleChange}
-                  value={formik.values.firstName}
-                  onBlur={formik.handleBlur}
-                  autoFocus
-                />
-                {formik.touched.firstName && formik.errors.firstName ? (
-                  <div id='errorStyle'>{formik.errors.firstName}</div>) : null
-                }
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                  onChange={formik.handleChange}
-                  value={formik.values.lastName}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.lastName && formik.errors.lastName ? (
-                  <div id='errorStyle'>{formik.errors.lastName}</div>) : null
-                }
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  onChange={formik.handleChange}
-                  value={formik.values.email}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.email && formik.errors.email ? (<div id='errorStyle'>
-                  {formik.errors.email}
-                </div>) : null}
-              </Grid>
-              <Grid item xs={12}>
-
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.password}
-                /><TiInfoLarge onClick={infoClick} />
-
-                {formik.touched.password && formik.errors.password ? (
-                  <div id='errorStyle'>{formik.errors.password}</div>)
-                  : null}
-
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+    <div className='signUp dark light'>
+      <div className='signUpForm'>
+        <ThemeProvider theme={createTheme({
+          palette: {
+            mode: theme.theme
+          }
+        })}>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+              sx={{
+                marginTop: 8,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
             >
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
+              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Sign up
+              </Typography>
               <Grid item>
-                <Link href="/E-commerce-BD-/SignIn" variant="body2">
-                  Already have an account? Sign in
+                <Link href="/E-commerce-BD-" variant="body2">
+                  continue shopping
                 </Link>
               </Grid>
-            </Grid>
-          </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
+              <Box component="form" noValidate onSubmit={formik.handleSubmit} sx={{ mt: 3 }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      autoComplete="given-name"
+                      name="firstName"
+                      required
+                      fullWidth
+                      id="firstName"
+                      label="First Name"
+                      onChange={formik.handleChange}
+                      value={formik.values.firstName}
+                      onBlur={formik.handleBlur}
+                      autoFocus
+                    />
+                    {formik.touched.firstName && formik.errors.firstName ? (
+                      <div id='errorStyle'>{formik.errors.firstName}</div>) : null
+                    }
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      required
+                      fullWidth
+                      id="lastName"
+                      label="Last Name"
+                      name="lastName"
+                      autoComplete="family-name"
+                      onChange={formik.handleChange}
+                      value={formik.values.lastName}
+                      onBlur={formik.handleBlur}
+                    />
+                    {formik.touched.lastName && formik.errors.lastName ? (
+                      <div id='errorStyle'>{formik.errors.lastName}</div>) : null
+                    }
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email Address"
+                      name="email"
+                      autoComplete="email"
+                      onChange={formik.handleChange}
+                      value={formik.values.email}
+                      onBlur={formik.handleBlur}
+                    />
+                    {formik.touched.email && formik.errors.email ? (<div id='errorStyle'>
+                      {formik.errors.email}
+                    </div>) : null}
+                  </Grid>
+                  <Grid item xs={12}>
+
+                    <TextField
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      autoComplete="new-password"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.password}
+                    /><TiInfoLarge onClick={infoClick} />
+
+                    {formik.touched.password && formik.errors.password ? (
+                      <div id='errorStyle'>{formik.errors.password}</div>)
+                      : null}
+
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControlLabel
+                      control={<Checkbox value="allowExtraEmails" color="primary" />}
+                      label="I want to receive inspiration, marketing promotions and updates via email."
+                    />
+                  </Grid>
+                </Grid>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Sign Up
+                </Button>
+
+                <Grid container justifyContent="flex-end" spacing={14}>
+                  <Grid item>
+                    <Switch
+                      checked={theme.checked}
+                      onChange={handleSwitchChange}
+                      inputProps={{ 'aria-label': 'controlled' }}
+                    />
+                  </Grid>
+                  <Grid item >
+                    <Link href="/E-commerce-BD-/SignIn" variant="body2">
+                      Already have an account? Sign in
+                    </Link>
+                  </Grid>
+                </Grid>
+              </Box>
+            </Box>
+          </Container>
+        </ThemeProvider>
+      </div>
+      <div className='signUpImg'>
+        <img src='https://img.freepik.com/free-vector/sign-up-concept-illustration_114360-7885.jpg' />
+      </div>
+    </div>
   );
 }
