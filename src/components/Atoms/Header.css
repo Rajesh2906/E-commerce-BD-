@@ -1,5 +1,59 @@
-.navbar{
-    position: fixed;
-    top: 0%;
-    padding: 10px;
+.navbar {
+  position: fixed;
+  top: 0%;
+  padding: 10px;
+  overflow: hidden;
+  background-color: white !important;
+}
+.bdLogo {
+  height: 35px;
+}
+.navPage {
+  text-decoration: none;
+  color: black;
+}
+.clicked {
+  color: blue;
+}
+.navbar .navigationPages .container {
+  display: none;
+}
+.d-grid {
+  gap: 60px;
+}
+
+/* responsive css */
+@media screen and (max-width: 800px) {
+  .navigationPages a {
+    display: none;
+  }
+  /* menu css */
+  .navigationPages .container {
+    display: inline-block !important;
+    cursor: pointer;
+  }
+
+  .navigationPages .bar1,
+  .bar2,
+  .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #333;
+    margin: 6px 0;
+    transition: 0.4s;
+  }
+  .navigationPages .change {
+    cursor: pointer;
+  }
+  .navigationPages .change .bar1 {
+    transform: translate(0, 11px) rotate(-45deg);
+  }
+
+  .navigationPages .change .bar2 {
+    opacity: 0;
+  }
+
+  .navigationPages .change .bar3 {
+    transform: translate(0, -11px) rotate(45deg);
+  }
 }

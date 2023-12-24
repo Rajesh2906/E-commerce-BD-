@@ -1,17 +1,11 @@
-.home{
-    color: aliceblue;
-    text-align: center;
-    width: 100%;
-    background-color: blue;
-}
+
 .homeImg{
-    position: fixed;
-    top: 55px;
+    /* position: fixed;
+    z-index: 0;
+    top: -20px; */
     width: 100%;
-    height: auto;
+    height: 500px;
 }
-.brandSlider{
-    position: relative;
-    top: 210px;
-    width: 100%;
+html::-webkit-scrollbar {
+    display: none;
 }
