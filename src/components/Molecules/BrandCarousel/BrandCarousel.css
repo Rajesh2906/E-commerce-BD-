@@ -1,9 +1,9 @@
 .logoWrapper{
     position: relative;
-    left: 40px;
+    padding: 40px 30px;
     align-items: center;
     display: flex;
-    width: 1320px;
+    width: auto;
 }
 .carosonal{
     display: flex;

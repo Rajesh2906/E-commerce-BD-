@@ -1,10 +1,13 @@
 .homeCard{
-    position: absolute;
-    top: 100%;
-    left: 10%;
+    position: relative;
     display: flex;
+    flex-wrap: wrap;
+    padding: 0 30px;
     gap: 60px;
+    justify-content: center;
 }
 #cards{
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.388);
+    flex: 1 1 310px;
+    height: auto;
 }
